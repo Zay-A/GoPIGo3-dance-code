@@ -173,10 +173,20 @@ class GoPiGo3WithKeyboard(object):
     def _gopigo3_command_danceOff(self):
         b = 60/128 #each beat is 0.46 seconds
         x = 0
-            
-        self.gopigo3.set_speed(500)
+        y = 500
+        speed = 500
+        self.gopigo3.set_speed(speed)
         
+        #Blink to the clap
         time.sleep(4*b)
+        while x <= 15:
+            self.gopigo3.open_eyes()
+            sleep(1*b)
+            self.gopigo3.close_eyes()
+            sleep(1*b)
+            x = x + 1
+        #first psrt
+        self.gopigo3.open_eyes()
         self.gopigo3.forward()
         time.sleep(8*b)
         self.mySPIN1function()
@@ -218,8 +228,15 @@ class GoPiGo3WithKeyboard(object):
         time.sleep(2*b)
         self.gopigo3.spin_left()
         sleep(6*b)
-        self.gopigo3.stop()
         
+        self.gopigo3.forward()
+        time.sleep(8*b)
+        self.mySPIN1function()
+        while y <= 5
+            speed = speed - 100
+            y = y + 1
+            
+        self.gopigo3.stop()
         return "moving"
 
     def _gopigo3_command_backward(self):
@@ -323,7 +340,7 @@ class GoPiGo3WithKeyboard(object):
         return "static"
 
     def _gopigo3_command_eyescolor(self):
-        red = (102)
+        red = (500)
         green = (0)
         blue = (0)
 
