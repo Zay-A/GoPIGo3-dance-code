@@ -170,13 +170,13 @@ class GoPiGo3WithKeyboard(object):
         self.gopigo3.steer(100, 0)
         sleep(2*b)
         
-    def _gopigo3_command_danceOff(self):
+       def _gopigo3_command_danceOff(self):
         b = 60/128 #each beat is 0.46 seconds
         x = 0
-        y = 500
+        y = 0
         speed = 500
         self.gopigo3.set_speed(speed)
-        
+        """
         #Blink to the clap
         time.sleep(4*b)
         while x <= 15:
@@ -232,11 +232,22 @@ class GoPiGo3WithKeyboard(object):
         self.gopigo3.forward()
         time.sleep(8*b)
         self.mySPIN1function()
-        while y <= 5
-            speed = speed - 100
+        self.gopigo3.backward()
+        time.sleep(2*b)
+        self.gopigo3.spin_left()
+        
+        """
+        self.gopigo3.backward()
+        while y <= 5 and speed > 0:
+            print(speed)
+            speed = speed - 50
+            if speed < 0:
+                speed = 0
+            self.gopigo3.set_speed(speed)
+            sleep(2*b)
             y = y + 1
             
-        self.gopigo3.stop()
+        self.gopigo3.stop()    
         return "moving"
 
     def _gopigo3_command_backward(self):
