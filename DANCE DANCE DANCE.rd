@@ -141,7 +141,7 @@ class GoPiGo3WithKeyboard(object):
             print("Error: Keys found GoPiGo3WithKeyboard.order_of_keys don't match with those in GoPiGo3WithKeyboard.keybindings.")
 
     def _gopigo3_command_forward(self):
-        self.DEFAULT_SPEED = 3000
+        self.DEFAULT_SPEED = 500
         self.gopigo3.set_speed(self.DEFAULT_SPEED)
         self.gopigo3.forward()
 
@@ -169,14 +169,48 @@ class GoPiGo3WithKeyboard(object):
         sleep(2*b)
         self.gopigo3.steer(100, 0)
         sleep(2*b)
-        
-       def _gopigo3_command_danceOff(self):
+    def Decreasefunction(self):
+        b = 60/128
+        #y = 0
+        speed = 501
+        #while y <= 3 and speed > 0:
+        while speed >= 1:
+            
+            #if speed < 0:
+                #speed = 0
+            self.gopigo3.set_speed(speed)
+            print(speed)
+            self.gopigo3.open_eyes()
+            sleep(1*b)
+            self.gopigo3.close_eyes()
+            sleep(1*b)
+            speed = speed - 100
+            #y = y + 1
+    def Increasefunction(self):
+        b = 60/128
+        #y = 0
+        speed = 1
+        #while y <= 3 and speed < 500:
+        while speed <= 501:
+            #if speed < 0:
+                #speed = 0
+            self.gopigo3.set_speed(speed)
+            print(speed)
+            self.gopigo3.open_eyes()
+            sleep(1*b)
+            self.gopigo3.close_eyes()
+            sleep(1*b)
+            speed = speed + 100
+            
+            #y = y + 1
+            
+    def _gopigo3_command_danceOff(self):
         b = 60/128 #each beat is 0.46 seconds
         x = 0
         y = 0
         speed = 500
         self.gopigo3.set_speed(speed)
-        """
+
         #Blink to the clap
         time.sleep(4*b)
         while x <= 15:
@@ -236,18 +270,18 @@ class GoPiGo3WithKeyboard(object):
         time.sleep(2*b)
         self.gopigo3.spin_left()
         
-        """
+    
         self.gopigo3.backward()
-        while y <= 5 and speed > 0:
-            print(speed)
-            speed = speed - 50
-            if speed < 0:
-                speed = 0
-            self.gopigo3.set_speed(speed)
-            sleep(2*b)
-            y = y + 1
-            
-        self.gopigo3.stop()    
+        self.Decreasefunction()
+        self.gopigo3.spin_right()
+        self.Increasefunction()
+        sleep(2*b)
+        self.Decreasefunction()
+        self.gopigo3.spin_left()
+        self.Increasefunction()
+        
+        self.gopigo3.stop()
+        
         return "moving"
 
     def _gopigo3_command_backward(self):
